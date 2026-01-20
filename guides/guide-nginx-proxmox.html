@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Nginx sur Proxmox | wrajaelhak.fr</title>
+    <meta name="description" content="Guide complet pour héberger son site web sur un serveur Proxmox avec Nginx, SSL et configuration LXC.">
+    <link rel="stylesheet" href="doc-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Guide complet : Héberger son site web sur un serveur Proxmox</h1>
+
+        <nav class="toc">
+            <div class="toc-title">Table des matières</div>
+            <ol>
+                <li><a href="#preparation">Préparation et prérequis</a></li>
+                <li><a href="#lxc">Configuration du LXC</a></li>
+                <li><a href="#nginx">Installation et configuration Nginx</a></li>
+                <li><a href="#transfert">Transfert des fichiers du site Web</a></li>
+                <li><a href="#dns">Configuration du nom de domaine</a></li>
+                <li><a href="#portforward">Configuration réseau (Port Forwarding)</a></li>
+                <li><a href="#ssl">Sécurisation avec SSL/HTTPS</a></li>
+                <li><a href="#commandes">Commandes utiles</a></li>
+                <li><a href="#depannage">Dépannage</a></li>
+            </ol>
+        </nav>
+
+        <hr>
+
+        <h2 id="preparation">1. Préparation et prérequis</h2>
+        <ul class="checklist">
+            <li>Serveur Proxmox fonctionnel</li>
+            <li>Conteneur LXC (Debian 12 ou Ubuntu 22.04/24.04)</li>
+            <li>Nom de domaine acquis</li>
+            <li>Fichiers du site web</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="lxc">2. Configuration du LXC</h2>
+
+        <h3>A. Création du conteneur LXC dans Proxmox</h3>
+        <p>Avant d'installer Nginx, on va créer un conteneur LXC sur Proxmox.</p>
+        <p>Les paramètres importants :</p>
+        <ul>
+            <li><strong>CPU</strong> : 1 core</li>
+            <li><strong>RAM</strong> : 512 Mo</li>
+            <li><strong>Disque</strong> : 8 Go</li>
+            <li><strong>Réseau</strong> : Adresse IP statique + bridge vmbr0</li>
+        </ul>
+
+        <h3>B. Première connexion et mise à jour</h3>
+        <p>Une fois le conteneur créé, connectez-vous et mettez à jour le système :</p>
+        <pre><code>apt update && apt upgrade -y</code></pre>
+
+        <h3>C. Configuration réseau</h3>
+        <p>Vérifiez la configuration réseau actuelle :</p>
+        <pre><code>ip a
+cat /etc/network/interfaces</code></pre>
+
+        <p>Éditez le fichier de configuration réseau :</p>
+        <pre><code>nano /etc/network/interfaces</code></pre>
+
+        <p>Contenu recommandé :</p>
+        <pre><code>auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 192.168.1.100/24
+    gateway 192.168.1.1</code></pre>
+
+        <div class="alert alert-warning">
+            <p>⚠️ <strong>Important</strong> : La gateway (adresse de votre routeur) est indispensable pour que le serveur soit accessible depuis l'extérieur. Sans elle, votre LXC peut communiquer en local mais pas avec internet.</p>
+        </div>
+
+        <p>Appliquez les changements et vérifiez la connectivité :</p>
+        <pre><code>systemctl restart networking
+ping -c 4 google.com</code></pre>
+
+        <hr>
+
+        <h2 id="nginx">3. Installation et configuration Nginx</h2>
+
+        <h3>A. Installation de Nginx</h3>
+        <pre><code>apt install nginx -y</code></pre>
+
+        <p>Démarrez le service et activez-le au démarrage :</p>
+        <pre><code>systemctl start nginx
+systemctl enable nginx</code></pre>
+
+        <p>Vérifiez que Nginx fonctionne :</p>
+        <pre><code>systemctl status nginx</code></pre>
+
+        <p><strong>Test rapide :</strong> Ouvrez un navigateur et rendez-vous sur <code>http://192.168.1.100</code>. Vous devriez voir la page par défaut de Nginx.</p>
+
+        <h3>B. Structure des répertoires Nginx</h3>
+        <div class="directory-structure">/etc/nginx/
+├── nginx.conf              # Configuration principale
+├── sites-available/        # Configurations des sites (actifs ou non)
+├── sites-enabled/          # Sites actifs (liens symboliques)
+├── conf.d/                 # Configurations additionnelles
+└── snippets/               # Morceaux de config réutilisables
+
+/var/www/
+└── html/                   # Racine web par défaut</div>
+
+        <h3>C. Configuration principale de Nginx</h3>
+        <p>Sauvegardez d'abord la configuration originale :</p>
+        <pre><code>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup</code></pre>
+
+        <p>Éditez le fichier de configuration :</p>
+        <pre><code>nano /etc/nginx/nginx.conf</code></pre>
+
+        <p>Contenu de la configuration :</p>
+        <pre><code>user www-data;
+worker_processes 1;
+pid /run/nginx.pid;
+error_log /var/log/nginx/error.log;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 512;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    server_tokens off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    gzip on;
+    gzip_types text/css text/javascript application/javascript application/json;
+    gzip_min_length 1000;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}</code></pre>
+
+        <h3>D. Configuration du site web</h3>
+        <p>Créez le fichier de configuration pour votre site :</p>
+        <pre><code>nano /etc/nginx/sites-available/wrajaelhak.fr</code></pre>
+
+        <p>Contenu de la configuration :</p>
+        <pre><code>server {
+    listen 80;
+    listen [::]:80;
+
+    server_name wrajaelhak.fr www.wrajaelhak.fr;
+
+    root /var/www/wrajaelhak.fr;
+    index index.html index.htm;
+
+    access_log /var/log/nginx/wrajaelhak-access.log;
+    error_log /var/log/nginx/wrajaelhak-error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+}</code></pre>
+
+        <div class="alert alert-info">
+            <p>💡 <strong>Note</strong> : Cette configuration est en HTTP uniquement. Certbot ajoutera automatiquement la configuration HTTPS lors de la génération du certificat SSL.</p>
+        </div>
+
+        <h3>E. Activer le site</h3>
+        <p>Nginx lit uniquement les fichiers présents dans le dossier <code>sites-enabled/</code> pour afficher les sites. Plutôt que de mettre la configuration directement dans ce dossier, on la place dans <code>sites-available/</code> et on crée un raccourci (lien symbolique) vers <code>sites-enabled/</code>.</p>
+        <p>L'avantage : si vous voulez désactiver le site temporairement, vous supprimez juste le raccourci. La configuration reste intacte dans <code>sites-available/</code> et vous pouvez réactiver le site à tout moment.</p>
+
+        <pre><code>ln -s /etc/nginx/sites-available/wrajaelhak.fr /etc/nginx/sites-enabled/
+
+mkdir -p /var/www/wrajaelhak.fr
+
+chown -R www-data:www-data /var/www/wrajaelhak.fr
+chmod -R 755 /var/www/wrajaelhak.fr</code></pre>
+
+        <h3>F. Vérification et application</h3>
+        <p>Testez la configuration Nginx :</p>
+        <pre><code>nginx -t</code></pre>
+
+        <p>Si tout est OK, rechargez Nginx :</p>
+        <pre><code>systemctl reload nginx</code></pre>
+
+        <hr>
+
+        <h2 id="transfert">4. Transfert des fichiers du site Web</h2>
+
+        <h3>A. Configuration SSH sur le LXC</h3>
+        <p>Avant de pouvoir transférer des fichiers, il faut configurer SSH sur le conteneur.</p>
+        <pre><code>systemctl status ssh</code></pre>
+
+        <p>Si le serveur SSH n'est pas installé :</p>
+        <pre><code>apt install openssh-server -y
+
+systemctl start ssh
+systemctl enable ssh</code></pre>
+
+        <p>Par défaut, la connexion root par mot de passe est désactivée. Pour l'activer temporairement :</p>
+        <pre><code>nano /etc/ssh/sshd_config</code></pre>
+
+        <p>Trouvez et modifiez cette ligne :</p>
+        <pre><code>PermitRootLogin yes</code></pre>
+
+        <p>Puis redémarrez SSH :</p>
+        <pre><code>systemctl restart ssh</code></pre>
+
+        <div class="alert alert-warning">
+            <p>⚠️ <strong>Sécurité</strong> : Une fois vos fichiers transférés, pensez à désactiver la connexion root par mot de passe et utiliser des clés SSH à la place.</p>
+        </div>
+
+        <h3>B. Transfert des fichiers avec SCP</h3>
+        <p>Depuis votre PC :</p>
+        <pre><code>scp -r /chemin/vers/mon-site/* root@192.168.1.100:/var/www/wrajaelhak.fr/</code></pre>
+
+        <h3>C. Appliquer les permissions</h3>
+        <p>Après le transfert, attribuez les fichiers à l'utilisateur Nginx :</p>
+        <pre><code>chown -R www-data:www-data /var/www/wrajaelhak.fr</code></pre>
+
+        <hr>
+
+        <h2 id="dns">5. Configuration du nom de domaine</h2>
+
+        <div class="alert alert-warning">
+            <p>⚠️ <strong>Important</strong> : Cette étape doit être faite <strong>AVANT</strong> de générer le certificat SSL.</p>
+        </div>
+
+        <p>Chez votre registrar (OVH, Cloudflare, etc.) configurez les enregistrements DNS :</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Nom</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td>@</td>
+                    <td>Votre_IP_Publique</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>www</td>
+                    <td>Votre_IP_Publique</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Pour trouver votre IP publique :</p>
+        <pre><code>curl ifconfig.me</code></pre>
+
+        <p>La propagation DNS peut prendre entre 24h-48h. Vous pouvez vérifier avec :</p>
+        <pre><code>dig wrajaelhak.fr</code></pre>
+
+        <hr>
+
+        <h2 id="portforward">6. Configuration réseau (Port Forwarding)</h2>
+
+        <div class="alert alert-warning">
+            <p>⚠️ <strong>Important</strong> : Cette étape doit être faite <strong>AVANT</strong> de générer le certificat SSL.</p>
+        </div>
+
+        <p>Sur votre routeur/box, redirigez les ports vers votre LXC :</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Port externe</th>
+                    <th>Port interne</th>
+                    <th>Protocole</th>
+                    <th>Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>80</td>
+                    <td>80</td>
+                    <td>TCP</td>
+                    <td>192.168.1.100</td>
+                </tr>
+                <tr>
+                    <td>443</td>
+                    <td>443</td>
+                    <td>TCP</td>
+                    <td>192.168.1.100</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>La procédure varie selon votre box/routeur. Cherchez une section "NAT", "Port Forwarding" ou "Redirection de ports" dans l'interface d'administration.</p>
+
+        <hr>
+
+        <h2 id="ssl">7. Sécurisation avec SSL/HTTPS</h2>
+
+        <div class="alert alert-warning">
+            <p>⚠️ <strong>Prérequis</strong> : Les étapes 5 (DNS) et 6 (Port Forwarding) doivent être terminées. Certbot a besoin d'accéder à votre serveur depuis internet pour valider le certificat.</p>
+        </div>
+
+        <h3>A. Installation de Certbot</h3>
+        <pre><code>apt install certbot python3-certbot-nginx -y</code></pre>
+
+        <h3>B. Génération du certificat SSL</h3>
+        <pre><code>certbot --nginx -d wrajaelhak.fr -d www.wrajaelhak.fr</code></pre>
+
+        <p>Suivez les instructions à l'écran. Certbot va :</p>
+        <ul>
+            <li>Vérifier que vous êtes bien propriétaire du domaine</li>
+            <li>Générer un certificat SSL gratuit (Let's Encrypt)</li>
+            <li>Modifier automatiquement votre configuration Nginx</li>
+            <li>Configurer la redirection HTTP → HTTPS</li>
+        </ul>
+
+        <h3>C. Renouvellement automatique</h3>
+        <p>Les certificats Let's Encrypt expirent après 90 jours. Certbot configure automatiquement un renouvellement. Vous pouvez le tester avec :</p>
+        <pre><code>certbot renew --dry-run</code></pre>
+
+        <hr>
+
+        <h2 id="commandes">8. Commandes utiles</h2>
+        <pre><code>nginx -t
+
+systemctl reload nginx
+
+systemctl restart nginx
+
+tail -f /var/log/nginx/wrajaelhak-access.log
+
+tail -f /var/log/nginx/wrajaelhak-error.log
+
+rm /etc/nginx/sites-enabled/wrajaelhak.fr
+
+ln -s /etc/nginx/sites-available/wrajaelhak.fr /etc/nginx/sites-enabled/
+
+certbot certificates
+
+certbot renew</code></pre>
+
+        <hr>
+
+        <h2 id="depannage">9. Dépannage</h2>
+
+        <h3>Le site n'est pas accessible</h3>
+        <ol>
+            <li>Vérifiez que Nginx tourne : <code>systemctl status nginx</code></li>
+            <li>Vérifiez la config : <code>nginx -t</code></li>
+            <li>Vérifiez les logs : <code>tail -f /var/log/nginx/error.log</code></li>
+            <li>Vérifiez le port forwarding sur votre routeur</li>
+            <li>Vérifiez que la gateway est configurée dans le LXC</li>
+        </ol>
+
+        <h3>Certbot échoue</h3>
+        <ol>
+            <li>Vérifiez que le DNS pointe bien vers votre IP : <code>nslookup wrajaelhak.fr</code></li>
+            <li>Vérifiez que le port 80 est accessible depuis l'extérieur</li>
+            <li>Vérifiez les logs Certbot : <code>/var/log/letsencrypt/letsencrypt.log</code></li>
+        </ol>
+
+        <h3>Erreur 502 Bad Gateway</h3>
+        <p>Le serveur backend ne répond pas. Vérifiez que votre application est lancée.</p>
+
+        <h3>Erreur 403 Forbidden</h3>
+        <p>Problème de permissions. Vérifiez :</p>
+        <pre><code>chown -R www-data:www-data /var/www/wrajaelhak.fr
+chmod -R 755 /var/www/wrajaelhak.fr</code></pre>
+
+        <h3>Erreur "Connection refused" en SSH</h3>
+        <ol>
+            <li>Vérifiez que SSH est installé et lancé : <code>systemctl status ssh</code></li>
+            <li>Vérifiez que le port 22 est ouvert : <code>ss -tlnp | grep 22</code></li>
+        </ol>
+
+    </div>
+
+    <a href="#" class="back-to-top" title="Retour en haut">↑</a>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Wassim RAJAELHAK, étudiant en BTS SIO SISR">
+    <title>Wassim RAJAELHAK - Portfolio BTS SIO SISR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">WR.</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#experience">Expérience</a></li>
+                <li><a href="#formation">Formation</a></li>
+                <li><a href="#veille">Veille</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">👋 Bienvenue sur mon portfolio</span>
+            <h1>Wassim RAJAELHAK</h1>
+            <p class="hero-subtitle">Étudiant en BTS SIO | Option SISR</p>
+            <div class="hero-buttons">
+                <a href="docs/cv-wassim-rajaelhak.pdf" class="btn btn-primary" download="CV-Wassim-RAJAELHAK.pdf">📥 Télécharger mon CV</a>
+                <a href="#contact" class="btn btn-secondary">Me contacter</a>
+                <a href="#projects" class="btn btn-secondary">Voir mes projets</a>
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <div class="section-header">
+            <div class="section-tag">Profil</div>
+            <h2 class="section-title">À propos de moi</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-content">
+                <h3>Je suis Wassim RAJAELHAK</h3>
+                <p>🏫 Étudiant en <strong>BTS SIO</strong> (Services Informatiques aux Organisations), spécialité <strong>SISR</strong> à Schola Nova à Paris. Je me forme aux infrastructures, systèmes et réseaux avec une orientation forte vers le cloud computing.</p>
+                <p>💻 Passionné par les environnements <strong>Linux</strong>, la <strong>virtualisation</strong> et l'<strong>automatisation</strong>. J'utilise quotidiennement Docker, Proxmox et depuis peu les outils de l'écosystème DevOps.</p>
+                <p>🎯 En alternance chez <strong>BCA Expertise</strong>, j'interviens sur le support IT pour plus de 1600 collaborateurs, ce qui me permet d'acquérir une vision concrète des infrastructures d'entreprise.</p>
+                <p><strong>Mon objectif :</strong> Devenir <strong>Ingénieur DevOps</strong> et maîtriser l'automatisation, le cloud et la conteneurisation.</p>
+            </div>
+            <div class="skills-wrapper">
+                <h4>🛠️ Technologies & Outils</h4>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="skill-icon">
+                        Linux
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="skill-icon">
+                        Docker
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://img.icons8.com/color/96/proxmox.png" alt="Proxmox" class="skill-icon">
+                        Proxmox
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash" class="skill-icon">
+                        Bash
+                    </div>
+                    <div class="skill-item">
+                        <img src="docs/packet-tracer.png" alt="Cisco Packet Tracer" class="skill-icon">
+                        Packet Tracer
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML/CSS" class="skill-icon">
+                        HTML/CSS
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana" class="skill-icon">
+                        Grafana
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-icon">
+                        Git
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://img.icons8.com/fluency/96/security-checked.png" alt="Sécurité" class="skill-icon">
+                        Sécurité
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="bts-sio" style="background: rgba(15, 23, 42, 0.5);">
+        <div class="section-header">
+            <div class="section-tag">Formation</div>
+            <h2 class="section-title">Qu'est-ce que le BTS SIO 🎓 ?</h2>
+        </div>
+        <div class="bts-content">
+            <div class="bts-intro">
+                <p>Le <strong>Brevet de Technicien Supérieur aux Services Informatiques aux Organisations (BTS SIO)</strong>, s'adresse à ceux qui souhaitent se former en deux ans aux métiers d'administrateur réseau ou de développeur. Pour par la suite intégrer directement le marché du travail ou continuer des études, dans le domaine de l'informatique.</p>
+                <p style="margin-top: 1.5rem; font-size: 1.2rem; font-weight: 600; color: white;">Le BTS SIO propose deux spécialités :</p>
+            </div>
+
+            <div class="bts-options">
+                <div class="option-card option-sisr">
+                    <div class="option-header">
+                        <div class="option-icon">🌐</div>
+                        <h3>Option SISR</h3>
+                        <p class="option-subtitle">Solutions d'Infrastructure, Systèmes et Réseaux</p>
+                    </div>
+                    <p class="option-description">
+                        L'option SISR forme des professionnels des réseaux et équipements informatiques (installation, maintenance, sécurité). En sortant d'un BTS SIO SISR, vous serez capables de gérer et d'administrer le réseau d'une société et d'assurer sa sécurité et sa maintenance.
+                    </p>
+                    <div class="metiers">
+                        <h4>Métiers accessibles :</h4>
+                        <ul>
+                            <li>Administrateur systèmes et réseaux</li>
+                            <li>Informaticien support et déploiement</li>
+                            <li>Pilote d'exploitation</li>
+                            <li>Support systèmes et réseaux</li>
+                            <li>Technicien d'infrastructure</li>
+                            <li>Technicien de production</li>
+                            <li>Technicien micro et réseaux</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="option-card option-slam">
+                    <div class="option-header">
+                        <div class="option-icon">💻</div>
+                        <h3>Option SLAM</h3>
+                        <p class="option-subtitle">Solutions Logicielles et Applications Métiers</p>
+                    </div>
+                    <p class="option-description">
+                        L'option SLAM forme des spécialistes des logiciels (rédaction d'un cahier des charges, formulation des besoins et spécifications, développement, intégration au sein de la société).
+                    </p>
+                    <div class="metiers">
+                        <h4>Métiers accessibles :</h4>
+                        <ul>
+                            <li>Développeur d'applications informatiques</li>
+                            <li>Développeur informatique</li>
+                            <li>Analyste d'applications ou d'études</li>
+                            <li>Analyste programmeur</li>
+                            <li>Programmeur d'applications</li>
+                            <li>Responsable des services applicatifs</li>
+                            <li>Technicien d'études informatiques</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="experience">
+        <div class="section-header">
+            <div class="section-tag">Expérience Professionnelle</div>
+            <h2 class="section-title">Mon Expérience</h2>
+            <p class="section-desc">Mon parcours professionnel et mes projets</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <h3 class="timeline-title">Technicien Support Informatique</h3>
+                        <p class="timeline-company">BCA Expertise - Asnières-sur-Seine</p>
+                    </div>
+                    <span class="timeline-date">Septembre 2024 - Présent</span>
+                </div>
+                <p class="timeline-desc">Alternance en tant que technicien support informatique (BTS SIO SISR)</p>
+                <ul class="timeline-list">
+                    <li>Gestion des comptes et groupes Active Directory : création, modification, suppression de comptes et attribution des droits d'accès</li>
+                    <li>Support utilisateur de niveau 1 : prise en charge des incidents matériels et logiciels (poste de travail, imprimantes, messagerie, VPN...)</li>
+                    <li>Assistance à distance et sur site, accompagnement des utilisateurs dans leur quotidien</li>
+                    <li>Maintenance et déploiement de postes : configuration, installation et mise à jour des équipements informatiques</li>
+                    <li>Gestion du ticketing : ouverture, suivi et clôture des tickets dans l'outil HEAT Ivanti</li>
+                    <li>Contribution à un projet interne en intelligence artificielle : transmission d'analyses sur les incidents les plus fréquents pour concevoir un assistant IA métier</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <h3 class="timeline-title">Homelab Personnel</h3>
+                        <p class="timeline-company">Projet Continu</p>
+                    </div>
+                </div>
+                <p class="timeline-desc">Infrastructure personnelle sur serveur physique HP Proliant ML10 pour l'expérimentation et l'apprentissage.</p>
+                <ul class="timeline-list">
+                    <li>Gestion du serveur physique via iLO (allumage, BIOS, surveillance matérielle)</li>
+                    <li>Déploiement Proxmox VE : création et gestion de VMs Linux/Windows, configuration réseau</li>
+                    <li>Conteneurisation avec Docker Compose et Portainer : déploiement et supervision de conteneurs</li>
+                    <li>Auto-hébergement de services : serveurs Minecraft, Reverse Proxy (SWAG), Serveur Web (Nginx)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="formation" style="background: rgba(15, 23, 42, 0.5);">
+        <div class="section-header">
+            <div class="section-tag">Formation</div>
+            <h2 class="section-title">Mon Parcours Scolaire</h2>
+            <p class="section-desc">Ma formation académique</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <h3 class="timeline-title">BTS SIO - Option SISR</h3>
+                        <p class="timeline-company">Schola Nova - Informatique</p>
+                    </div>
+                    <span class="timeline-date">Septembre 2024 - Juillet 2026</span>
+                </div>
+                <p class="timeline-desc">Services Informatiques aux Organisations - Solutions d'Infrastructure, Systèmes et Réseaux</p>
+                <ul class="timeline-list">
+                    <li>Administration systèmes Linux et Windows Server</li>
+                    <li>Gestion et sécurisation des réseaux</li>
+                    <li>Virtualisation et conteneurisation</li>
+                    <li>Automatisation et scripting</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <h3 class="timeline-title">Baccalauréat Technologique STMG</h3>
+                        <p class="timeline-company">Lycée de L'Essouriau - Commerce</p>
+                    </div>
+                    <span class="timeline-date">Septembre 2019 - Juillet 2022</span>
+                </div>
+                <p class="timeline-desc">Sciences et Technologies du Management et de la Gestion</p>
+            </div>
+        </div>
+    </section>
+    <section id="veille">
+        <div class="section-header">
+            <div class="section-tag">Veille Technologique</div>
+            <h2 class="section-title">Veille Informationnelle</h2>
+            <p class="section-desc">Ma veille sur les technologies émergentes et tendances du secteur</p>
+        </div>
+        <div class="veille-content">
+            <div class="veille-card">
+                <div class="veille-header">
+                    <div class="veille-icon">🐳</div>
+                    <div>
+                        <h3>La Conteneurisation avec Docker</h3>
+                        <p class="veille-meta">Veille technologique BTS SIO SISR • 2024</p>
+                    </div>
+                </div>
+                <p class="veille-description">
+                    Étude approfondie de la conteneurisation et de Docker : fonctionnement des conteneurs, 
+                    différences avec la virtualisation, architecture technique (cgroups, namespaces, capabilities) 
+                    et cas d'usage en entreprise.
+                </p>
+                <div class="pdf-viewer">
+                    <iframe 
+                        src="docs/veille-conteneurisation.pdf#toolbar=0" 
+                        type="application/pdf"
+                        style="width: 100%; height: 600px; border: none; border-radius: 12px; background: white;">
+                    </iframe>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">
+                        📄 Visualiseur PDF - Téléchargez le document pour une meilleure expérience
+                    </p>
+                </div>
+
+                <div class="veille-actions">
+                    <a href="docs/veille-conteneurisation.pdf" class="btn btn-primary" download="veille-conteneurisation.pdf">
+                        📥 Télécharger le PDF
+                    </a>
+                    <div class="veille-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Conteneurisation</span>
+                        <span class="tag">DevOps</span>
+                        <span class="tag">Infrastructure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="projects">
+        <div class="section-header">
+            <div class="section-tag">Réalisations</div>
+            <h2 class="section-title">Mes Projets</h2>
+            <p class="section-desc">Une sélection de mes projets techniques et réalisations</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🏠</div>
+                <div class="project-content">
+                    <h3>Infrastructure Homelab</h3>
+                    <p>Mise en place d'une infrastructure complète avec Proxmox, incluant plusieurs VMs Linux, services conteneurisés et monitoring.</p>
+                    <div class="project-tags">
+                        <span class="tag">Proxmox</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Monitoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🌐</div>
+                <div class="project-content">
+                    <h3>Architecture Réseau Sécurisée</h3>
+                    <p>Configuration et sécurisation d'un réseau d'entreprise avec VLANs, pare-feu, VPN et segmentation réseau.</p>
+                    <div class="project-tags">
+                        <span class="tag">Cisco</span>
+                        <span class="tag">VPN</span>
+                        <span class="tag">Firewall</span>
+                        <span class="tag">Sécurité</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🐳</div>
+                <div class="project-content">
+                    <h3>Stack Applicative Docker</h3>
+                    <p>Déploiement d'une stack complète avec Docker Compose : applications web, reverse proxy et monitoring.</p>
+                    <div class="project-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Portainer</span>
+                        <span class="tag">Nginx</span>
+                        <span class="tag">DevOps</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+    <div class="project-image">🔐</div>
+    <div class="project-content">
+        <h3>Serveur Web Sécurisé</h3>
+        <p>Configuration d'un serveur Nginx sur LXC Proxmox avec SSL/TLS, hardening système et mise en place de bonnes pratiques de sécurité.</p>
+        <div class="project-tags">
+            <span class="tag">Linux</span>
+            <span class="tag">Nginx</span>
+            <span class="tag">SSL/TLS</span>
+            <span class="tag">Proxmox</span>
+        </div>
+        <a href="guides/guide-nginx-proxmox.html" class="btn btn-secondary" style="margin-top: 1rem;">📖 Voir la documentation</a>
+    </div>
+</div>
+
+            <div class="project-card">
+                <div class="project-image">⚙️</div>
+                <div class="project-content">
+                    <h3>Scripts d'Automatisation</h3>
+                    <p>Collection de scripts Bash pour automatiser les tâches d'administration système : backups, monitoring, déploiements.</p>
+                    <div class="project-tags">
+                        <span class="tag">Bash</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Cron</span>
+                        <span class="tag">Scripting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">💼</div>
+                <div class="project-content">
+                    <h3>Portfolio Personnel</h3>
+                    <p>Développement de ce portfolio en HTML/CSS pour présenter mes compétences et projets de manière professionnelle.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="section-header">
+            <div class="section-tag">Contact</div>
+            <h2 class="section-title">Restons en contact</h2>
+            <p class="section-desc">N'hésitez pas à me contacter pour toute opportunité ou collaboration</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4>📧 Email</h4>
+                    <a href="mailto:wassim.rajaelhak@proton.me">wassim.rajaelhak@proton.me</a>
+                </div>
+                <div class="contact-card">
+                    <h4>📍 Localisation</h4>
+                    <p>Paris, Île-de-France</p>
+                </div>
+                <div class="contact-card">
+                    <h4>💼 Statut</h4>
+                    <p>En alternance</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/wassim-rajaelhak-444653244/" target="_blank" class="social-btn" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="mailto:wassim.rajaelhak@proton.me" class="social-btn" title="Email">@</a>
+            </div>
+
+            <a href="mailto:wassim.rajaelhak@proton.me" class="btn btn-primary" style="margin-top: 2rem;">Envoyez-moi un message</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Wassim RAJAELHAK - Tous droits réservés</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
