@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de synthèse E5 - Wassim RAJAELHAK">
+    <title>Tableau de synthèse E5 - Wassim RAJAELHAK</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ts-hero {
+            padding: 140px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ts-hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ts-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .ts-hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            transition: gap 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 0.8rem;
+        }
+
+        .ts-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .ts-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ts-block:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+        }
+
+        .ts-block p {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .ts-block strong {
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 700px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            background: #000;
+            display: block;
+            margin: 1.5rem 0 1.2rem;
+        }
+
+        .ts-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Light mode */
+        body.light-mode .ts-block {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .ts-block:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        body.light-mode .pdf-viewer {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .ts-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .pdf-viewer {
+                height: 450px;
+            }
+
+            .ts-block {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">WR.</div>
+            <ul class="nav-links">
+                <li><a href="index.html#accueil">Accueil</a></li>
+                <li><a href="index.html#about">À propos</a></li>
+                <li><a href="index.html#experience">Expérience</a></li>
+                <li><a href="tableau-synthese.html" style="color: var(--primary); font-weight: 600;">Tableau E5</a></li>
+                <li><a href="epreuves-e6.html">Épreuves E6</a></li>
+                <li><a href="index.html#formation">Formation</a></li>
+                <li><a href="veille.html">Veille</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="ts-hero">
+        <div class="hero-content">
+            <a href="index.html" class="back-link">← Retour au portfolio</a>
+            <span class="hero-tag">📋 BTS SIO SISR — Session 2026</span>
+            <h1>Tableau de synthèse</h1>
+            <p class="hero-subtitle">Épreuve E5</p>
+            <p style="color: var(--gray); max-width: 620px; margin: 1rem auto 0; font-size: 0.95rem; line-height: 1.7;">
+                Récapitulatif des réalisations professionnelles menées en formation et en
+                alternance, mises en correspondance avec les compétences du bloc
+                <strong>« Support et mise à disposition de services informatiques »</strong>.
+            </p>
+        </div>
+    </div>
+
+    <div class="ts-container">
+
+        <div class="ts-block">
+            <p>
+                Ce tableau de synthèse, fourni au format officiel par la circulaire nationale
+                d'organisation du BTS SIO, présente l'ensemble de mes réalisations
+                professionnelles sur les deux années de formation et les met en correspondance
+                avec les compétences du référentiel de l'épreuve E5.
+            </p>
+
+            <iframe
+                src="docs/tableau-synthese-E5.pdf"
+                class="pdf-viewer"
+                title="Tableau de synthèse E5"
+            ></iframe>
+
+            <div class="ts-actions">
+                <a href="docs/tableau-synthese-E5.pdf" class="btn btn-primary" download="Tableau-Synthese-E5-Wassim-RAJAELHAK.pdf">
+                    📥 Télécharger le PDF
+                </a>
+                <a href="docs/tableau-synthese-E5.xlsx" class="btn btn-secondary" download="Tableau-Synthese-E5-Wassim-RAJAELHAK.xlsx">
+                    📊 Télécharger l'Excel (.xlsx)
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Wassim RAJAELHAK - Tous droits réservés</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veille Technologique - Wassim RAJAELHAK">
+    <title>Veille Technologique - Wassim RAJAELHAK</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .veille-page-hero {
+            padding: 140px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .veille-page-hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .veille-page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .veille-page-hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            transition: gap 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 0.8rem;
+        }
+
+        .veille-page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .veille-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .veille-block:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+        }
+
+        .veille-block-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .block-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .veille-block h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .veille-block p {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .veille-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .veille-block strong {
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        /* Grille sources */
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .source-card {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .source-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .source-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .source-card-icon {
+            font-size: 1.4rem;
+        }
+
+        .source-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .source-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .source-card li {
+            padding: 0.35rem 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .source-card li:last-child {
+            border-bottom: none;
+        }
+
+        .source-card li strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Outils & fréquence */
+        .outils-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .outil-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .outil-card .outil-emoji {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .outil-card h4 {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin: 0 0 0.3rem;
+            font-weight: 600;
+        }
+
+        .outil-card p {
+            font-size: 0.82rem;
+            color: var(--gray);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .frequence-table {
+            margin-top: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .frequence-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.92rem;
+        }
+
+        .frequence-row:last-child {
+            border-bottom: none;
+        }
+
+        .frequence-row .freq-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .frequence-row .freq-action {
+            color: #94a3b8;
+        }
+
+        /* Actus marquantes */
+        .actus-list {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .actu-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 10px 10px 0;
+            padding: 1.2rem 1.5rem;
+        }
+
+        .actu-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.82rem;
+        }
+
+        .actu-date {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .actu-cat {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--secondary);
+            padding: 0.15rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .actu-item h3 {
+            color: #fff;
+            font-size: 1.05rem;
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+        }
+
+        .actu-item p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* PDF viewer */
+        .pdf-viewer-page {
+            width: 100%;
+            height: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            background: #000;
+            display: block;
+            margin-bottom: 1.2rem;
+        }
+
+        .pdf-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* Liens / ressources */
+        .liens-category {
+            margin-bottom: 1.8rem;
+        }
+
+        .liens-category h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .liens-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+        }
+
+        .lien-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+        }
+
+        .lien-item:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(99, 102, 241, 0.06);
+            transform: translateX(3px);
+        }
+
+        .lien-item .lien-arrow {
+            margin-left: auto;
+            color: var(--primary);
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        body.light-mode .lien-item {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #1e293b;
+        }
+
+        body.light-mode .lien-item:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* Light mode overrides */
+        body.light-mode .veille-block {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .veille-block:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        body.light-mode .source-card {
+            background: rgba(99, 102, 241, 0.04);
+        }
+
+        body.light-mode .outil-card,
+        body.light-mode .actu-item {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        body.light-mode .pdf-viewer-page {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .veille-page-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .sources-grid,
+            .outils-grid,
+            .liens-list {
+                grid-template-columns: 1fr;
+            }
+
+            .frequence-row {
+                grid-template-columns: 1fr;
+                gap: 0.3rem;
+            }
+
+            .veille-block {
+                padding: 1.5rem;
+            }
+
+            .pdf-viewer-page {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">WR.</div>
+            <ul class="nav-links">
+                <li><a href="index.html#accueil">Accueil</a></li>
+                <li><a href="index.html#about">À propos</a></li>
+                <li><a href="index.html#experience">Expérience</a></li>
+                <li><a href="tableau-synthese.html">Tableau E5</a></li>
+                <li><a href="epreuves-e6.html">Épreuves E6</a></li>
+                <li><a href="index.html#formation">Formation</a></li>
+                <li><a href="veille.html" style="color: var(--primary); font-weight: 600;">Veille</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="veille-page-hero">
+        <div class="hero-content">
+            <a href="index.html" class="back-link">← Retour au portfolio</a>
+            <span class="hero-tag">🐳 BTS SIO SISR</span>
+            <h1>Veille Technologique</h1>
+            <p class="hero-subtitle">La Conteneurisation avec Docker</p>
+            <p style="color: var(--gray); max-width: 620px; margin: 1rem auto 0; font-size: 0.95rem; line-height: 1.7;">
+                Démarche structurée de veille sur un domaine stratégique du métier
+                d'administrateur systèmes & réseaux, au cœur de mon projet professionnel
+                vers les métiers du <strong>DevOps</strong>.
+            </p>
+        </div>
+    </div>
+
+    <div class="veille-page-container">
+
+        <!-- Bloc 1 : Pourquoi ce sujet -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">🎯</span>
+                <h2>Pourquoi la conteneurisation ?</h2>
+            </div>
+            <p>
+                La conteneurisation a profondément <strong>transformé l'industrie informatique</strong>
+                ces dix dernières années. De simple outil de développement, Docker est devenu un
+                standard incontournable du déploiement applicatif, et son écosystème
+                (Kubernetes, Podman, containerd…) structure désormais l'infrastructure des
+                entreprises modernes, du SaaS au cloud hybride.
+            </p>
+            <p>
+                J'ai choisi ce sujet pour <strong>trois raisons</strong> :
+            </p>
+            <p>
+                <strong>1. Cohérence avec mon projet professionnel.</strong> Mon objectif
+                est de devenir ingénieur DevOps. Maîtriser la conteneurisation est la
+                première compétence attendue sur ce type de poste.<br><br>
+                <strong>2. Lien direct avec mes pratiques.</strong> Je déploie quotidiennement
+                des conteneurs sur mon homelab (Docker Compose, Portainer, SWAG) ; la veille
+                me permet d'améliorer continuellement mes pratiques.<br><br>
+                <strong>3. Enjeux de sécurité.</strong> Les conteneurs introduisent une
+                surface d'attaque spécifique (évasion, supply chain, images non signées).
+                Suivre l'actualité sécurité est essentiel en tant que futur administrateur SISR.
+            </p>
+        </div>
+
+        <!-- Bloc 2 : Sources -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">📚</span>
+                <h2>Mes sources de veille</h2>
+            </div>
+            <p>
+                Je m'appuie sur <strong>quatre catégories complémentaires</strong> pour
+                croiser les informations et éviter les biais : sources officielles,
+                communauté technique, alertes sécurité et médias spécialisés.
+            </p>
+
+            <div class="sources-grid">
+
+                <div class="source-card">
+                    <div class="source-card-header">
+                        <span class="source-card-icon">🏛️</span>
+                        <h3>Sources officielles</h3>
+                    </div>
+                    <ul>
+                        <li><strong>docs.docker.com</strong> — documentation et changelogs</li>
+                        <li><strong>blog Docker</strong> — annonces produit & releases</li>
+                        <li><strong>kubernetes.io/blog</strong> — écosystème K8s</li>
+                        <li><strong>CNCF.io</strong> — projets cloud native</li>
+                    </ul>
+                </div>
+
+                <div class="source-card">
+                    <div class="source-card-header">
+                        <span class="source-card-icon">👥</span>
+                        <h3>Blogs & retours d'XP</h3>
+                    </div>
+                    <ul>
+                        <li><strong>Blog Stéphane Robert</strong> — DevOps & infra (FR)</li>
+                        <li><strong>Linux Tricks</strong> — blog et chaîne YouTube (FR)</li>
+                        <li><strong>LinuxFr.org</strong> — articles techniques FR</li>
+                        <li><strong>r/docker, r/selfhosted</strong> — Reddit</li>
+                    </ul>
+                </div>
+
+                <div class="source-card">
+                    <div class="source-card-header">
+                        <span class="source-card-icon">🔐</span>
+                        <h3>Sécurité</h3>
+                    </div>
+                    <ul>
+                        <li><strong>CERT-FR</strong> — alertes ANSSI</li>
+                        <li><strong>CVE Mitre</strong> — runc, containerd, dockerd</li>
+                        <li><strong>Snyk Blog</strong> — vulnérabilités images</li>
+                        <li><strong>CIS Docker Benchmark</strong> — hardening</li>
+                    </ul>
+                </div>
+
+                <div class="source-card">
+                    <div class="source-card-header">
+                        <span class="source-card-icon">📺</span>
+                        <h3>Médias & vidéo</h3>
+                    </div>
+                    <ul>
+                        <li><strong>The New Stack</strong> — tendances cloud-native</li>
+                        <li><strong>LeMagIT</strong> — actu IT entreprise FR</li>
+                        <li><strong>YouTube</strong> — Xavki, NetworkChuck, Cocadmin</li>
+                        <li><strong>DockerCon / KubeCon</strong> — replays conférences</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bloc 3 : Démarche -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">⚙️</span>
+                <h2>Ma démarche de veille</h2>
+            </div>
+            <p>
+                Plutôt qu'un agrégateur RSS centralisé que je n'utiliserais pas vraiment,
+                j'ai construit une démarche <strong>directe et pragmatique</strong>,
+                articulée autour de <strong>trois modes complémentaires</strong>.
+            </p>
+
+            <div class="outils-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="outil-card" style="text-align: left;">
+                    <span class="outil-emoji">📺</span>
+                    <h4 style="font-size: 1.05rem;">Veille de fond</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6;">
+                        Consultation régulière de chaînes YouTube et blogs spécialisés
+                        (<strong>Xavki</strong>, <strong>Stéphane Robert</strong>,
+                        <strong>Linux Tricks</strong>…) pour suivre les tendances et
+                        découvrir de nouveaux outils. Construit une culture solide
+                        du domaine.
+                    </p>
+                </div>
+                <div class="outil-card" style="text-align: left;">
+                    <span class="outil-emoji">🎯</span>
+                    <h4 style="font-size: 1.05rem;">Veille déclenchée</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6;">
+                        Recherche ciblée quand je rencontre un problème, que je veux
+                        mettre en place un nouveau service sur mon homelab, ou qu'un
+                        sujet est abordé en cours. Cette veille active débouche
+                        directement sur de la pratique.
+                    </p>
+                </div>
+                <div class="outil-card" style="text-align: left;">
+                    <span class="outil-emoji">🔔</span>
+                    <h4 style="font-size: 1.05rem;">Veille automatisée</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6;">
+                        <strong>Google Alerts</strong> configuré sur des mots-clés ciblés
+                        (Docker security, Kubernetes CVE, container escape…) pour
+                        recevoir par email les nouveautés et alertes sécurité dès
+                        qu'elles paraissent dans la presse spécialisée.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="color: #cbd5e1; font-size: 1.05rem; margin: 2rem 0 0.8rem; font-weight: 600;">
+                Mes alertes Google Alerts configurées
+            </h3>
+
+            <div class="frequence-table">
+                <div class="frequence-row">
+                    <div class="freq-label">🐳 Docker</div>
+                    <div class="freq-action">"Docker security", "Docker CVE", "Docker release"</div>
+                </div>
+                <div class="frequence-row">
+                    <div class="freq-label">☸️ Kubernetes</div>
+                    <div class="freq-action">"Kubernetes vulnerability", "Kubernetes CVE"</div>
+                </div>
+                <div class="frequence-row">
+                    <div class="freq-label">🛡️ Sécurité conteneurs</div>
+                    <div class="freq-action">"container escape", "runc CVE", "containerd vulnerability"</div>
+                </div>
+                <div class="frequence-row">
+                    <div class="freq-label">📦 Écosystème</div>
+                    <div class="freq-action">"Podman", "Docker Desktop", "container runtime"</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.8rem;">
+                En complément, je consulte ponctuellement la <strong>documentation officielle
+                Docker</strong> pour vérifier une syntaxe ou comprendre un mécanisme.
+            </p>
+        </div>
+
+        <!-- Bloc 4 : Mise en pratique -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">🛠️</span>
+                <h2>Mise en pratique</h2>
+            </div>
+            <p>
+                Une veille n'a de valeur que si elle débouche sur de la pratique. Voici comment
+                j'applique concrètement ce que j'apprends, à la fois sur mon <strong>homelab
+                personnel</strong> et dans mon environnement professionnel chez
+                <strong>BCA Expertise</strong>.
+            </p>
+
+            <p>
+                <strong>Sur mon homelab</strong> (serveur HP Proliant ML10 + Proxmox VE) :
+            </p>
+            <p style="padding-left: 1rem; border-left: 2px solid rgba(99, 102, 241, 0.3);">
+                • Stack <strong>Docker Compose</strong> multi-services :
+                Nginx, Portainer, SWAG (reverse proxy + Let's Encrypt), serveur Minecraft.<br>
+                • <strong>Test de nouveaux services</strong> découverts en veille
+                (exploration d'images, lecture des Dockerfiles, comparaison entre alternatives).<br>
+                • <strong>Bonnes pratiques de sécurité</strong> que j'applique
+                progressivement : utilisateurs non-root dans les conteneurs,
+                exposition réseau maîtrisée, séparation reverse proxy / services backend
+                via des réseaux Docker dédiés.
+            </p>
+
+            <p style="margin-top: 1.5rem;">
+                <strong>En contexte professionnel</strong>, ma veille me permet de mieux
+                comprendre les architectures que je rencontre en support N1
+                (services applicatifs conteneurisés, reverse proxy, services backend)
+                et de gagner en autonomie sur le diagnostic des incidents.
+            </p>
+        </div>
+
+        <!-- Bloc 5 : Actualités marquantes -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">📰</span>
+                <h2>Actualités marquantes (2024-2025)</h2>
+            </div>
+            <p>
+                Voici trois sujets majeurs que j'ai suivis et qui illustrent les évolutions
+                du domaine — autant sur le plan <strong>sécurité</strong> que sur les
+                <strong>tendances de l'écosystème</strong>.
+            </p>
+
+            <div class="actus-list">
+
+                <div class="actu-item">
+                    <div class="actu-meta">
+                        <span class="actu-date">Janvier 2024</span>
+                        <span class="actu-cat">Sécurité critique</span>
+                    </div>
+                    <h3>CVE-2024-21626 — « Leaky Vessels » (runc)</h3>
+                    <p>
+                        Vulnérabilité critique dans <strong>runc</strong> (le runtime
+                        bas-niveau sous Docker, containerd, Kubernetes) permettant une
+                        évasion de conteneur via une manipulation des descripteurs de
+                        fichiers. Impact majeur sur l'écosystème entier. Patch immédiat
+                        nécessaire (runc 1.1.12+). Cet incident m'a fait prendre conscience
+                        de l'importance de la veille CVE sur la chaîne complète, pas
+                        seulement Docker.
+                    </p>
+                </div>
+
+                <div class="actu-item">
+                    <div class="actu-meta">
+                        <span class="actu-date">2024</span>
+                        <span class="actu-cat">Modèle économique</span>
+                    </div>
+                    <h3>Docker Desktop : évolution de la politique de licence</h3>
+                    <p>
+                        Docker Desktop devient payant pour les entreprises de plus
+                        d'une certaine taille, ce qui a accéléré l'adoption d'alternatives
+                        en open source comme <strong>Podman Desktop</strong> et
+                        <strong>Rancher Desktop</strong>. Sujet stratégique pour les DSI
+                        et illustration que la veille ne porte pas que sur la technique,
+                        mais aussi sur les enjeux business des outils utilisés.
+                    </p>
+                </div>
+
+                <div class="actu-item">
+                    <div class="actu-meta">
+                        <span class="actu-date">2024-2025</span>
+                        <span class="actu-cat">Tendance marché</span>
+                    </div>
+                    <h3>Kubernetes vs Docker Swarm en entreprise</h3>
+                    <p>
+                        La domination de <strong>Kubernetes</strong> sur l'orchestration
+                        s'est confirmée, y compris en PME via les offres managées
+                        (AKS, EKS, GKE). Docker Swarm reste pertinent sur des
+                        infrastructures simples, mais le marché du travail demande
+                        désormais quasi-systématiquement K8s pour les postes DevOps.
+                        Cela oriente directement mon prochain axe de veille et de formation.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bloc 6 : Document de synthèse PDF -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">📄</span>
+                <h2>Document de synthèse</h2>
+            </div>
+            <p>
+                Pour capitaliser ma veille, j'ai rédigé un <strong>dossier de synthèse
+                complet</strong> sur la conteneurisation avec Docker : fonctionnement
+                technique, différences avec la virtualisation, architecture interne
+                (cgroups, namespaces, capabilities) et cas d'usage en entreprise.
+            </p>
+
+            <iframe
+                src="docs/veille-conteneurisation.pdf"
+                class="pdf-viewer-page"
+                title="Veille Conteneurisation"
+            ></iframe>
+
+            <div class="pdf-actions">
+                <a href="docs/veille-conteneurisation.pdf" class="btn btn-primary" download="Veille-Conteneurisation-Wassim-RAJAELHAK.pdf">
+                    📥 Télécharger le dossier complet
+                </a>
+            </div>
+        </div>
+
+        <!-- Bloc 7 : Ressources & liens -->
+        <div class="veille-block">
+            <div class="veille-block-header">
+                <span class="block-icon">🔗</span>
+                <h2>Ressources & liens utiles</h2>
+            </div>
+            <p>
+                Voici l'ensemble des sources mentionnées plus haut, regroupées par catégorie
+                pour faciliter la consultation.
+            </p>
+
+            <div class="liens-category">
+                <h3>🔧 Outils de veille</h3>
+                <div class="liens-list">
+                    <a href="https://www.google.fr/alerts" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🔔</span> Google Alerts
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="liens-category">
+                <h3>🏛️ Sources officielles</h3>
+                <div class="liens-list">
+                    <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📘</span> Documentation Docker
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.docker.com/blog/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📝</span> Blog Docker officiel
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://kubernetes.io/blog/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>☸️</span> Blog Kubernetes
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>☁️</span> CNCF (Cloud Native Computing Foundation)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="liens-category">
+                <h3>👥 Blogs & retours d'expérience</h3>
+                <div class="liens-list">
+                    <a href="https://blog.stephane-robert.info/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🧑‍💻</span> Blog Stéphane Robert
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.linuxtricks.fr/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🐧</span> Linux Tricks (blog)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.youtube.com/@linuxtricks" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📺</span> Linux Tricks (YouTube)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://linuxfr.org/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📰</span> LinuxFr.org
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.reddit.com/r/docker/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>💬</span> r/docker (Reddit)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.reddit.com/r/selfhosted/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🏠</span> r/selfhosted (Reddit)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="liens-category">
+                <h3>🔐 Sécurité</h3>
+                <div class="liens-list">
+                    <a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🇫🇷</span> CERT-FR (ANSSI)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.cve.org/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🛡️</span> CVE Mitre
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21626" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>⚠️</span> CVE-2024-21626 « Leaky Vessels »
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.cisecurity.org/benchmark/docker" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📋</span> CIS Docker Benchmark
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="liens-category">
+                <h3>📺 Médias & vidéo</h3>
+                <div class="liens-list">
+                    <a href="https://thenewstack.io/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🌐</span> The New Stack
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.lemagit.fr/" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🇫🇷</span> LeMagIT
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.youtube.com/@xavki-presentations" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>📺</span> Xavki (YouTube)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                    <a href="https://www.youtube.com/@DockerInc" target="_blank" rel="noopener noreferrer" class="lien-item">
+                        <span>🐳</span> Docker Inc (YouTube)
+                        <span class="lien-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Wassim RAJAELHAK - Tous droits réservés</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
